@@ -1,15 +1,19 @@
+html {
+	overflow-y: scroll; /* so page doesn't shift left when load ".more" */
+}
+
 body {
     font: 28px/30px Arial, Helvetica, sans-serif;
     color: #1F1F5C;
 }
 
-h1 {
-	font-size: 1.6em;
-	line-height: 1.4em;
-	margin-bottom: 0.3em;
+h1, .ask {
+	font-size: 2.2em;
+	line-height: 1.1em;
+	margin-bottom: 0.5em;
 }
 h2 {
-	font-size: 1.4em;
+	font-size: 1.8em;
 	line-height: 1.4em;
 	margin-bottom: 0.3em;
 }
@@ -17,14 +21,19 @@ h2 {
 button {
     border: none;
     color: #1F1F5C;
-    font-size: 22px;
+    font-size: 0.7em;
     background-color: #eee;
     padding: 20px 15px;
     margin-top: 40px;
+    box-shadow: 1px 1px 1px #ccc;
 }
 button:hover {
     cursor: pointer;
-    box-shadow: 1px 1px 1px #ccc;
+    box-shadow: 2px 2px 1px #ccc;
+}
+button:focus {
+	outline: none;
+	box-shadow: 1px 1px 1px #ccc inset;
 }
 
 .container {
@@ -34,22 +43,21 @@ button:hover {
     max-width: 1500px;
 }
 
-.question {
-    font-size: 60px;
-    line-height: 64px;
+.ask {
     margin-top: 50px;
-    margin-bottom: 50px;
 }
 
-input {
-    display: none;
-}
 .answer {
     float: left;
     clear: left;
     margin-bottom: 20px;
     margin-left: 25%;
     padding-left: 10px;
+    list-style-type: none;
+    font-size: 1em;
+    -webkit-transition: color 1s, margin-left 1s, margin-right 1s;
+    -moz-transition: color 1s, margin-left 1s, margin-right 1s;
+	transition: color 1s, margin-left 1s, margin-right 1s;
 }
 .answer:last-child {
 	margin-bottom: 40px;
@@ -59,28 +67,43 @@ input {
     border-left: 2px solid #1F1F5C;
     padding-left: 8px;
 }
-.answer.correct {
-    margin-left: 10%;
-    color: #1F1F5C;
+.showCorrect {
+	color: #006600;
 }
-.answer.incorrect {
+.correct {
+	color: #1F1F5C;
+    margin-left: 10%;
+    margin-right: 15%;
+}
+.incorrect {
+	color: #CC0000;
+	-webkit-transition: color 1s;
+	-moz-transition: color 1s;
+	transition: color 1s;
+}
+.incorrect.dimmed {
     color: #EDDADA;
 }
-
 .dimmed {
     color: #ccc;
+}
+.showCorrect:hover, .correct:hover, .incorrect:hover, .dimmed:hover {
+    cursor: default;
+    border-left: none;
+    padding-left: 10px;
 }
 
 
 .more {
+	display: none;
     clear: both;
-    display: none;
     border-top: 2px solid #1F1F5C;
     margin-left: 25%;
+    z-index: 2;
 }
 .information {
 	padding-top: 32px;
-	font-size: 20px;
+	font-size: 0.7em;
 	width: 65%;
 	float: left;
 	text-shadow: 1px 1px 4px #fff;
@@ -96,29 +119,31 @@ input {
 
 .progress {
     position: absolute;
-    top: 10px;
+    top: 30px;
     right: 0;
 }
 .progress li {
     list-style-type: disc;
     color: #ccc;
 	font-size: 40px;
-	line-height: 24px;
+	line-height: 40px;
+	margin-top: -20px;
 }
-.progress li.completed {
+.progress .completed {
 	color: #1F1F5C;
 }
 
 .picture {
-	width: 36%;
-	height: 50%;
-    background: url("http://i.space.com/images/i/000/038/923/original/sygnux-black-hole.jpg?1398874404");
+	width: 32%;
+	min-width: 250px;
+	height: 45%;
     background-repeat: no-repeat;
+    background-position: top center;
     background-size: cover;
     position: fixed;
     left: 0;
     bottom: 0;
-    box-shadow: -60px 60px 60px 30px #fff inset;
+    box-shadow: -40px 40px 30px -10px #fff inset;
     z-index: -1;
 	opacity: 0.8;
     filter: alpha(opacity=80); /* For IE8 and earlier */
@@ -126,16 +151,25 @@ input {
 
 .introduction, .end {
 	display: none;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	width: 40%;
-	margin-top: -10%;
-	margin-left: -20%;
-	background-color: #fff;
-	box-shadow: 3px 3px 3px 3px #ccc;
+	margin-top: 50px;
 	text-align: center;
-	padding: 20px 30px;
-	z-index: 2;
 }
 
+.end a {
+	display: block;
+	margin-top: 2em;
+	font-size: 20px;
+	color: #1F1F5C;
+}
+
+@media screen and (max-width: 800px) {
+	body {
+    	font-size: 22px;
+    	line-height: 24px;
+	}
+}
+@media screen and (max-width: 1023px) {
+	.information {
+    	width: 60%;
+	}
+}
